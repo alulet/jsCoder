@@ -4,3 +4,35 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+
+.hero-img {
+  padding: 15px 0px;
+}
+.form-check {
+  text-align: center;
+}
+
+input[radio] {
+  display: inline-block;
+}
+
+.card {
+  border-radius: 0.5rem !important;
+}
+
+#progressbar_wrapper {
+  margin-left: 345px;
+  margin-top: 20px;
+  height: 35px;
+  border-radius: 3px;
+  overflow: hidden;
+  display: none;
+  margin-bottom: 20px;
+}
+
+#progressbar {
+  width: 0px;
+  height: 35px;
+  border-radius: 0px;
+  background-color: #0d6efd;
+}

@@ -141,7 +141,7 @@ function startTest() {
   // Pido al Usuario sus datos
   $("#modalTarjeta").modal({ show: false });
   $("#content").html(
-    '<div class="row d-inline-flex"> <div class="col-lg-6"><img width="300"data-aos="fade-up" data-aos-duration="600" data-aos-delay="200" class="hero-img" src="gift.svg" class="img-fluid" alt="Regalo"></div><div class="col-lg-6 d-flex align-items-center"> <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200"><h4 class="my-3">Ingrese su nombre: </h4>' +
+    '<div class="row d-inline-flex"> <div class="col-lg-6"><img width="300"data-aos="fade-up" data-aos-duration="600" data-aos-delay="200" class="hero-img" src="user.png" class="img-fluid" alt="Regalo"></div><div class="col-lg-6 d-flex align-items-center"> <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200"><h4 class="my-3">Ingrese su nombre: </h4>' +
       '<input class="form-control" id="userName" type="text" placeholder="Ejemplo: Alan">' +
       '<h4 class="my-3"> Ingrese su email: </h4> <input id="email" class="form-control" id="userMail" type="text" placeholder="ejemplo: alan@gmail.com"><form>' +
       '<button id="btnUserData" type="button" class="my-3 btn btn-primary btn-lg px-4 gap-3">Click o ENTER para continuar</button> </div></div></div>'
@@ -221,7 +221,6 @@ function userData() {
   ];
 
   let puntajeUsuario = 0;
-
   function animate_progressbar() {
     console.log("progressbar_wrapper: " + $("#progressbar_wrapper").width());
 
@@ -241,9 +240,9 @@ function userData() {
     $("#progressbar").animate({ width: "0px" }, 300);
     $("#progressbar").hide();
   }
-  // Utilizo la función flecha para calcular su perfil y guardo el resultado en "respuesta"
+  // Utilizo la función flecha para calcular su regalo y guardo el resultado en "respuesta"
 
-  let calcularPerfil = () => {
+  let calcularRegalo = () => {
     $("body").addClass("pattern-business");
     escribirPregunta(nroPregunta);
     $("#progressbar_wrapper").show();
@@ -352,7 +351,6 @@ function userData() {
         );
     }
     nroPregunta++;
-    //alert(nombreUsuario + ", tu puntaje final es: " + puntajeUsuario + ". Te enviaremos tu perfil completo al mail: " + mailUsuario);
   }
   function guardarPuntaje() {
     console.log("Puntaje total: " + puntajeUsuario);
@@ -372,19 +370,48 @@ function userData() {
     }
   }
 
-  // function armarTarjeta() {
-  // CREAR FUNCION QUE MUESTRA UN MODAL CON EL REGALO.. VERRRRRRRRRRRRRRRRRRRRR!!
+  function armarTarjeta() {
+    document.getElementById("eModalLabel").innerHTML =
+      "Su mejor regalo es: " + puntajeUsuario + "puntos.";
+    switch (true) {
+      //Modifico el DOM con Jquery cambiando la imagen que se despliega en el modal
+      case puntajeUsuario >= 0 && puntajeUsuario <= 11:
+        $("#modalImage").html(
+          `<img style="width: 100%;" src="img/muy-conservador.jpeg" alt="ver1">"`
+        );
+        break;
+      case puntajeUsuario >= 12 && puntajeUsuario <= 21:
+        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver2">"`);
+        break;
+      case puntajeUsuario >= 22 && puntajeUsuario <= 33:
+        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver3">"`);
+        break;
+      case puntajeUsuario >= 34 && puntajeUsuario <= 43:
+        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver4">"`);
+        break;
+      case puntajeUsuario >= 44 && puntajeUsuario <= 53:
+        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver5">"`);
+        break;
+
+      default:
+        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver6">"`);
+        break;
+    }
+  }
 
   function finTest() {
     reset_progressbar();
     guardarPuntaje();
-    // armarTarjeta();
+    armarTarjeta();
+    //Utilizo JQuery para mostrar el modal de la tarjeta del regalo.
+    $("#modalTarjeta").modal("show");
+    $("#progressbar_wrapper").hide();
+    content.innerHTML = `<div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200" class="text-center"><h4>Fin del test</h4>
+        <button id="retry" type="button" class="my-3 btn btn-primary btn-lg px-4 gap-3">Reintentar!</button></div>`;
+    // Utilizo método click() de Jquery
+    $("#retry").click(function () {
+      startTest();
+    });
   }
-  calcularPerfil();
+  calcularRegalo();
 }
-
-/*  Armar aca listado de puntos ej
-
-15 puntos --> Para un amigo // Entre 20 y 30 años // Finanzas
-
-*/
