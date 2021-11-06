@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿A quien le queres regalar?",
+    "respuestas": {
+      "a": "A) Un amigo",
+      "b": "B) Un compañéro de trabajo",
+      "c": "C) Novia/o",
+      "d": "D) Familiar cercano"
+    }
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Que edad Tiene?",
+    "respuestas": {
+      "a": "A) Entre 20 y 30 años",
+      "b": "B) Entre 30 y 40 años",
+      "c": "C) Mayora 40 años"
+    }
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Que intereses tiene?",
+    "respuestas": {
+      "a": "A) Finanzas",
+      "b": "B) Lectura",
+      "c": "C) Fotografia",
+      "d": "D) Cocina"
+    }
+  }
+]

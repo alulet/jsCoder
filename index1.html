@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Test para elegir el mejor regalo" />
-    <meta name="author" content="Alan Lettera" />
-    <title>Elegi tu mejor regalo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Test para evaluar perfil inversionista" />
+    <meta name="author" content="Leonel Gierberg" />
+    <title>Perfil Inversionista</title>
+
     <link
       rel="canonical"
       href="https://getbootstrap.com/docs/5.0/examples/heroes/"
     />
+    <!-- Bootstrap core CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,6 +19,7 @@
       crossorigin="anonymous"
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -32,13 +35,14 @@
         }
       }
     </style>
-    <link href="./css/heroes.css" rel="stylesheet" />
-    <link href="./css/styles.css" rel="stylesheet" />
-  </head>
 
+    <!-- Custom styles for this template -->
+    <link href="css/heroes.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
   <body>
     <main>
-      <h1 class="visually-hidden">Elegi tu mejor Regalo</h1>
+      <h1 class="visually-hidden">Test del Inversor</h1>
       <button
         hidden
         data-bs-toggle="modal"
@@ -52,6 +56,7 @@
       >
         Iniciar Test
       </button>
+
       <div class="px-4 py-5 my-5">
         <div
           id="progressbar_wrapper"
@@ -78,26 +83,28 @@
             data-aos-delay="100"
             class="display-5 fw-bold"
           >
-            Regalalo
+            Test del Inversor
           </h1>
           <img
-            width="180"
+            width="500"
             data-aos="fade-up"
             data-aos-duration="600"
             data-aos-delay="200"
             class="hero-img"
-            src="./assets/gift.svg"
+            src="img/hero.png"
             class="img-fluid"
-            alt="Regalo"
+            alt="Perfil Inversionista"
           />
           <p class="lead mb-4">
-            Hemos diseñado este cuestionario para que regalar, ya no sea un problema.
-            Con este simple formulario, nosotros le diremos cual es el mejor obsequio
-            para aquella persona especial.
+            Hemos diseñado este cuestionario de Perfil de Riesgo para ayudarle a
+            evaluar su tolerancia ante el riesgo. Tomese unos minutos para
+            completarlo y descubrirá su propio perfil de riesgo (del 1 al 6). Esto le
+            ayudará a seleccionar las mejores inversiones que se adapten a su perfil.
           </p>
-
           <p class="lead mb-4">
-            Si usted desea conversar con nosotros, no dude en ponerse en contacto.
+            Este cuestionario esta disenado para efectuar una auto evaluación. Sin
+            embargo, si usted desea conversar con nosotros sobre su contenido o sobre
+            sus propias calificaciones, no dude en ponerse en contacto.
           </p>
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             <button
@@ -108,7 +115,7 @@
               onClick="startTest()"
               class="btn btn-primary btn-lg px-4 gap-3"
             >
-              Ir a las Preguntas
+              Iniciar Test
             </button>
             <button
               data-aos="fade-up"
@@ -120,6 +127,18 @@
               Contactanos
             </button>
           </div>
+
+          <!--
+      <div>
+        <input type="radio" name="box" id="one">
+        <label for="one" class="box first">
+        <div class="course">
+          <span class="circle"></span>
+          <span class="subject"> When its raining ,people's umbrella are all you're going to see from above </span>
+        </div>
+        </label>
+      </div>
+    -->
         </div>
       </div>
     </main>
@@ -134,10 +153,10 @@
       <div class="modal-dialog modal modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="eModalLabel">Su mejor regalo es:</h5>
+            <h5 class="modal-title" id="eModalLabel">Su perfil inversionista es:</h5>
           </div>
           <div id="modalImageSource" class="modal-footer">
-            <img style="width: 100%" src="./assets/libros.png" alt="" />
+            <img style="width: 100%" src="img/agresivo.jpeg" alt="Agresivo" />
             <button
               class="button btn btn-primary btn-lg"
               type="button"
@@ -157,7 +176,7 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script src="js/index.js"></script>
+    <script src="js/script.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init();

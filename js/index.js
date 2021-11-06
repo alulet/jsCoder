@@ -117,7 +117,7 @@
 
 // Ejercicios Clase 5
 
-let content = document.getElementById("content");
+let content = document.getElementById('content');
 let nroPregunta;
 //let modalImage = document.getElementById('modalImageSource');
 class Persona {
@@ -129,130 +129,97 @@ class Persona {
 }
 
 function hideElement(id) {
-  $("#" + id).hide("slow");
+  $('#' + id).hide('slow');
 }
 
 function selectOption() {
-  $("button").attr("disabled", false);
+  $('button').attr('disabled', false);
 }
 
 function startTest() {
   nroPregunta = 0;
   // Pido al Usuario sus datos
-  $("#modalTarjeta").modal({ show: false });
-  $("#content").html(
-    '<div class="row d-inline-flex"> <div class="col-lg-6"><img width="300"data-aos="fade-up" data-aos-duration="600" data-aos-delay="200" class="hero-img" src="user.png" class="img-fluid" alt="Regalo"></div><div class="col-lg-6 d-flex align-items-center"> <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200"><h4 class="my-3">Ingrese su nombre: </h4>' +
+  $('#modalTarjeta').modal({ show: false });
+  $('#content').html(
+    '<div class="row d-inline-flex"> <div class="col-lg-6"><img width="300"data-aos="fade-up" data-aos-duration="600" data-aos-delay="200" class="hero-img" src="/assets/user.png" class="img-fluid" alt="Regalo"></div><div class="col-lg-6 d-flex align-items-center"> <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200"><h4 class="my-3">Ingrese su nombre: </h4>' +
       '<input class="form-control" id="userName" type="text" placeholder="Ejemplo: Alan">' +
       '<h4 class="my-3"> Ingrese su email: </h4> <input id="email" class="form-control" id="userMail" type="text" placeholder="ejemplo: alan@gmail.com"><form>' +
       '<button id="btnUserData" type="button" class="my-3 btn btn-primary btn-lg px-4 gap-3">Click o ENTER para continuar</button> </div></div></div>'
   );
   //Creo un evento para que cuando el usuario presione ENTER pueda iniciar el test
-  document.addEventListener("keyup", function (event) {
+  document.addEventListener('keyup', function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
       userData();
     }
   });
   //Creo otro evento para que cuando el usuario clickee el boton pueda iniciar el test
-  document
-    .getElementById("btnUserData")
-    .addEventListener("click", function (event) {
-      event.preventDefault();
-      userData();
-    });
+  document.getElementById('btnUserData').addEventListener('click', function (event) {
+    event.preventDefault();
+    userData();
+  });
 }
 
 function userData() {
   let usuario;
   let usuarios = [];
-  let nombreUsuario = $("#userName").val();
-  let mailUsuario = $("#email").val();
+  let nombreUsuario = $('#userName').val();
+  let mailUsuario = $('#email').val();
 
-  if (localStorage.getItem("users")) {
-    //console.log("Usuarios antes de traer: " + usuarios);
-    usuarios = JSON.parse(localStorage.getItem("users"));
-    //console.log("Usuarios después de traer del localstorage: " + usuarios);
+  if (localStorage.getItem('users')) {
+    usuarios = JSON.parse(localStorage.getItem('users'));
   }
   let userCount;
-  if (!localStorage.getItem("userCount")) {
+  if (!localStorage.getItem('userCount')) {
     userCount = 0;
-    localStorage.setItem("userCount", 0);
+    localStorage.setItem('userCount', 0);
   } else {
-    userCount = parseInt(localStorage.getItem("userCount"));
+    userCount = parseInt(localStorage.getItem('userCount'));
   }
 
   // Creo la matriz de puntajes
   let puntajes = [
-    [3, 2, 1, 0],
-    [7, 5, 2, 0],
-    [2, 1, 0, 0],
+    [3, 1, 1, 1],
+    [7, 5, 4, 0],
+    [2, 8, 14, 22],
   ];
 
-  let preguntas = [
-    {
-      id: 1,
-      pregunta: "¿A quien le queres regalar?",
-      respuestas: {
-        a: "A) Un amigo",
-        b: "B) Un compañéro de trabajo",
-        c: "C) Novia/o",
-        d: "D) Familiar cercano",
-      },
-    },
-    {
-      id: 2,
-      pregunta: "¿Que edad Tiene?",
-      respuestas: {
-        a: "A) Entre 20 y 30 años",
-        b: "B) Entre 30 y 40 años",
-        c: "C) Mayora 40 años",
-      },
-    },
-    {
-      id: 3,
-      pregunta: "¿Que intereses tiene?",
-      respuestas: {
-        a: "A) Finanzas",
-        b: "B) Lectura",
-        c: "C) Fotografia",
-        d: "D) Cocina",
-      },
-    },
-  ];
+  const preguntasUrl = '../data/preguntas.json';
+  let preguntas;
+
+  $.getJSON(preguntasUrl, function (respuestaServidor, estado) {
+    if (estado === 'success') {
+      preguntas = respuestaServidor;
+    }
+  });
 
   let puntajeUsuario = 0;
   function animate_progressbar() {
-    console.log("progressbar_wrapper: " + $("#progressbar_wrapper").width());
-
-    $total_width = $("#progressbar_wrapper").width();
-    console.log("total_width: " + $total_width);
+    $total_width = $('#progressbar_wrapper').width();
     $width_inc = $total_width / preguntas.length;
-    console.log("width_inc: " + $width_inc);
-    if ($("#progressbar").width() < $total_width) {
-      console.log("entra");
-      $width = $("#progressbar").width() + $width_inc;
-      console.log("width: " + $width);
-      $("#progressbar").animate({ width: "" + $width + "" }, 300);
+    if ($('#progressbar').width() < $total_width) {
+      $width = $('#progressbar').width() + $width_inc;
+      $('#progressbar').animate({ width: '' + $width + '' }, 300);
     }
   }
 
   function reset_progressbar() {
-    $("#progressbar").animate({ width: "0px" }, 300);
-    $("#progressbar").hide();
+    $('#progressbar').animate({ width: '0px' }, 300);
+    $('#progressbar').hide();
   }
   // Utilizo la función flecha para calcular su regalo y guardo el resultado en "respuesta"
 
   let calcularRegalo = () => {
-    $("body").addClass("pattern-business");
+    $('body').addClass('pattern-business');
     escribirPregunta(nroPregunta);
-    $("#progressbar_wrapper").show();
-    $("#progressbar").show();
+    $('#progressbar_wrapper').show();
+    $('#progressbar').show();
   };
 
   function escribirPregunta(nroPregunta) {
-    $("#content").hide("slow");
+    $('#content').hide('slow');
     setTimeout(function () {
-      $("#content").html(`
+      $('#content').html(`
 
     <div id="card" class="card h-lg-100 overflow-hidden">
       <div class="card-body p-0">
@@ -266,7 +233,7 @@ function userData() {
             <tbody id="formPreguntas">
                 <!-- Inicio iteracion -->`);
       for (const rta in preguntas[nroPregunta].respuestas) {
-        $("#formPreguntas").append(`
+        $('#formPreguntas').append(`
       <tr class="border-bottom border-200">
       <td>
         <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" width="60" alt="">
@@ -283,7 +250,7 @@ function userData() {
       </tr>`);
       }
 
-      $("#content")
+      $('#content')
         .append(
           `
     <!--Fin iteracion-->
@@ -298,17 +265,16 @@ function userData() {
     </div>
   </div>`
         )
-        .show("slow");
+        .show('slow');
 
       document
         .getElementById(preguntas[nroPregunta].id)
-        .addEventListener("click", function () {
-          var radios = document.getElementsByName("respuesta");
+        .addEventListener('click', function () {
+          var radios = document.getElementsByName('respuesta');
           for (var i = 0, length = radios.length; i < length; i++) {
             if (radios[i].checked) {
               guardarRta(radios[i].value);
               nroPregunta++;
-              console.log("Valor del radio: " + radios[i].value);
               break;
             }
           }
@@ -324,36 +290,41 @@ function userData() {
   }
 
   function guardarRta(response) {
-    console.log("Ahora nropregunta vale: " + nroPregunta);
     switch (response) {
-      case "a":
+      case 'a':
         puntajeUsuario += puntajes[nroPregunta][0];
         console.log(
-          nombreUsuario + " suma " + puntajes[nroPregunta][0] + " puntos."
+          nombreUsuario + ' suma ' + puntajes[nroPregunta][0] + ' puntos.'
         );
         break;
-      case "b":
+      case 'b':
         puntajeUsuario += puntajes[nroPregunta][1];
         console.log(
-          nombreUsuario + " suma " + puntajes[nroPregunta][1] + " puntos."
+          nombreUsuario + ' suma ' + puntajes[nroPregunta][1] + ' puntos.'
         );
         break;
-      case "c":
+      case 'c':
         puntajeUsuario += puntajes[nroPregunta][2];
         console.log(
-          nombreUsuario + " suma " + puntajes[nroPregunta][2] + " puntos."
+          nombreUsuario + ' suma ' + puntajes[nroPregunta][2] + ' puntos.'
         );
         break;
       default:
         puntajeUsuario += puntajes[nroPregunta][3];
         console.log(
-          nombreUsuario + " suma " + puntajes[nroPregunta][3] + " puntos."
+          nombreUsuario + ' suma ' + puntajes[nroPregunta][3] + ' puntos.'
         );
     }
     nroPregunta++;
+    // alert(
+    //   nombreUsuario +
+    //     ', tu puntaje final es: ' +
+    //     puntajeUsuario +
+    //     '. Te enviaremos tu perfil completo al mail: ' +
+    //     mailUsuario
+    // );
   }
   function guardarPuntaje() {
-    console.log("Puntaje total: " + puntajeUsuario);
     // Creo el objeto Persona con los datos ingresados y puntaje en 0
     usuario = new Persona(nombreUsuario, mailUsuario, puntajeUsuario);
     usuario.puntaje = puntajeUsuario;
@@ -362,39 +333,37 @@ function userData() {
       return b.puntaje - a.puntaje;
     });
     //Guardo mi usuario en el local Storage
-    localStorage.setItem("users", JSON.stringify(usuarios));
-    if (localStorage.getItem("userCount")) {
-      let addUser = parseInt(localStorage.getItem("userCount"));
+    localStorage.setItem('users', JSON.stringify(usuarios));
+    if (localStorage.getItem('userCount')) {
+      let addUser = parseInt(localStorage.getItem('userCount'));
       addUser++;
-      localStorage.setItem("userCount", addUser);
+      localStorage.setItem('userCount', addUser);
     }
   }
 
   function armarTarjeta() {
-    document.getElementById("eModalLabel").innerHTML =
-      "Su mejor regalo es: " + puntajeUsuario + "puntos.";
+    document.getElementById('eModalLabel').innerHTML =
+      'Su puntaje final es: ' + puntajeUsuario + 'puntos.';
     switch (true) {
-      //Modifico el DOM con Jquery cambiando la imagen que se despliega en el modal
-      case puntajeUsuario >= 0 && puntajeUsuario <= 11:
-        $("#modalImage").html(
-          `<img style="width: 100%;" src="img/muy-conservador.jpeg" alt="ver1">"`
+      case puntajeUsuario >= 7 && puntajeUsuario <= 13:
+        $('#modalImage').html(
+          `<img style="width: 100%;" src="../assets/bitcoin.png" alt="Bitcoin">"`
         );
         break;
-      case puntajeUsuario >= 12 && puntajeUsuario <= 21:
-        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver2">"`);
+      case puntajeUsuario >= 15 && puntajeUsuario <= 20:
+        $('#modalImage').html(
+          `<img style="width: 100%;" src="../assets/libros.png" alt="Libros">"`
+        );
         break;
-      case puntajeUsuario >= 22 && puntajeUsuario <= 33:
-        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver3">"`);
+      case puntajeUsuario >= 21 && puntajeUsuario <= 25:
+        $('#modalImage').html(
+          `<img style="width: 100%;" src="../assets/fotografia.png" alt="camara de fotos">"`
+        );
         break;
-      case puntajeUsuario >= 34 && puntajeUsuario <= 43:
-        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver4">"`);
-        break;
-      case puntajeUsuario >= 44 && puntajeUsuario <= 53:
-        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver5">"`);
-        break;
-
       default:
-        $("#modalImage").html(`<img style="width: 100%;" src="" alt="ver6">"`);
+        $('#modalImage').html(
+          `<img style="width: 100%;" src="../assets/cocina.png" alt="cocina">"`
+        );
         break;
     }
   }
@@ -403,13 +372,12 @@ function userData() {
     reset_progressbar();
     guardarPuntaje();
     armarTarjeta();
-    //Utilizo JQuery para mostrar el modal de la tarjeta del regalo.
-    $("#modalTarjeta").modal("show");
-    $("#progressbar_wrapper").hide();
-    content.innerHTML = `<div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200" class="text-center"><h4>Fin del test</h4>
+    $('#modalTarjeta').modal('show');
+    $('#progressbar_wrapper').hide();
+    content.innerHTML = `<div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200" class="text-center"><h4>Fin</h4>
         <button id="retry" type="button" class="my-3 btn btn-primary btn-lg px-4 gap-3">Reintentar!</button></div>`;
     // Utilizo método click() de Jquery
-    $("#retry").click(function () {
+    $('#retry').click(function () {
       startTest();
     });
   }
